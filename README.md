@@ -1,4 +1,21 @@
-# AngularMoviesList
+# AngularMoviesList - project details
+
+This project is a showcase of an Angular 11 consuming the Movie Database Rest API.
+
+This project follows the "Clean Architecture" pattern by Uncle Bob, although does not represent the full implementation of this architecture pattern due by the limitations of the DI system orchestrated by the Angular framework.
+
+Nevertheless, provides a suitable code structure of testable and decoupled layers.
+
+The project was inspired by [Angular clean architecture](https://github.com/im-a-giraffe/angular-clean-architecture).
+
+## Possible improvements 
+
+- Abstraction of the use cases for mocking purposes when writing tests
+- Adding pagination: When scrolled to bottom event, call to the Movie DB API to fetch the incremented page.
+- Adding unit tests for the services and the repository (TDD was not followed due to time limitations)
+- Improve the UI/UX.
+
+## Project version
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
