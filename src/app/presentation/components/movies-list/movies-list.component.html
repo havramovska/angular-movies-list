@@ -1,0 +1,37 @@
+<div class="loader-holder" *ngIf="!dataReady">
+  <mat-spinner class="data-loader"></mat-spinner>
+</div>
+
+<div class="wrapper" *ngIf="dataReady">
+  <h1 class="title">Welcome to movies database application</h1>
+  <p class="sub-title">Best place to find all of the most popular movies</p>
+  <p class="sub-title">Choose your favorite genre</p>
+
+  <ul class="movies-filter">
+    <ng-template ngFor let-genre [ngForOf]="moviesService.genres">
+      <li>
+        <a href="#" (click)="filterMovies(genre.id, genre.name)" [ngClass]="{'active': selectedItem === genre.name}"
+        class="active">{{genre.name}}</a>
+      </li>
+    </ng-template>
+  </ul>
+
+  <div class="movie-row">
+    <ng-template ngFor let-movie [ngForOf]="moviesFilteredData">
+      <div class="movie-column">
+        <h3 class="movie-title">{{movie.title}}</h3>
+        <div class="movie-img-holder">
+          <img [src]="imgBaseUrl + movie.posterPath" class="movie-img">
+        </div>
+        <span class="movie-votes">{{movie.voteAverage}} of {{movie.voteCount}}</span>
+        <ng-template #t let-fill="fill">
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+          </span>
+        </ng-template>
+        <ngb-rating [(rate)]="movie.voteAverage" [starTemplate]="t" [readonly]="true" [max]="10"></ngb-rating>
+        <button class="show-more" routerLink="/movie-details/{{movie.id}}">Read more</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

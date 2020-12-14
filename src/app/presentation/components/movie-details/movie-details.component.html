@@ -1,0 +1,33 @@
+<div class="loader-holder" *ngIf="!dataReady">
+  <mat-spinner class="data-loader"></mat-spinner>
+</div>
+
+<div id="movieDetails" class="wrapper" *ngIf="dataReady">
+  <div class="movie-left-row">
+    <img [src]="imgBaseUrl + movieDetails[0].posterPath" class="single-movie-img">
+  </div>
+  <div class="movie-right-row">
+    <h3 class="title">{{movieDetails[0].title}}</h3>
+
+    <div class="genre-list">
+      <ng-template ngFor let-genre [ngForOf]="movieDetails[0].genres">
+        <span class="genre">{{genre.name}}</span>
+      </ng-template>
+    </div>
+
+    <div class="movie-overview">
+      <p>{{movieDetails[0].overview}}</p>
+      <span><b>Release date:</b> {{movieDetails[0].releaseDate}}</span>
+    </div>
+
+    <span class="movie-votes">{{movieDetails[0].voteAverage}} of {{movieDetails[0].voteCount}}</span>
+    <ng-template #t let-fill="fill">
+      <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+      </span>
+    </ng-template>
+    <ngb-rating [(rate)]="movieDetails[0].voteAverage" [starTemplate]="t" [readonly]="true" [max]="10"></ngb-rating>
+
+    <button routerLink="/" class="link-back">Back to movies list</button>
+  </div>
+</div>
