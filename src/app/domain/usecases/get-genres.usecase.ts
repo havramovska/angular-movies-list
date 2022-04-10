@@ -12,7 +12,6 @@ export class GetGenresUsecase implements UseCase<void, Genre> {
     constructor(
         private movieRepo: MoviesRepository
     ) {
-        
     }
 
     execute(): Observable<Genre> {

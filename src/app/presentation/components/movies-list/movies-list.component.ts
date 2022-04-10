@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { DefaultMoviesDataService } from '../../services/movies-data.service';
 
@@ -14,9 +15,11 @@ export class MoviesListComponent implements OnInit {
   imgBaseUrl = environment.imgBaseUrl;
   moviesFilteredData = [];
   selectedItem: any;
+  toggledMenu: string = '';
 
   constructor(
-    private moviesService: DefaultMoviesDataService
+    private moviesService: DefaultMoviesDataService,
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
@@ -38,5 +41,27 @@ export class MoviesListComponent implements OnInit {
     this.moviesFilteredData = [];
     this.moviesFilteredData = this.movies.filter(s => s.genreIds.includes(+genreId));
     this.selectedItem = tab;
+    this.toggledMenu = '';
+    this.document.body.classList.remove('no-scroll');
+  }
+
+  openMenu() {
+    this.toggledMenu = this.toggledMenu === '' ? 'open' : '';
+    if (this.toggledMenu !== '') {
+      this.document.body.classList.add('no-scroll');
+    } else {
+      this.document.body.classList.remove('no-scroll');
+    }
+  }
+
+  @HostListener('window:unload', ['$event'])
+  async unloadHandler(event) {
+    if (event.currentTarget.performance.navigation.type !== PerformanceNavigation.TYPE_RELOAD) {
+      window.alert('closed')
+    }
+  }
+
+  ngOnDestroy() {
+    console.log('HERE')
   }
 }

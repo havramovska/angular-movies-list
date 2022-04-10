@@ -1,22 +1,96 @@
 #movieDetails {
   display: flex;
-  margin: 8% auto;
+  margin: 0 auto;
+  height: 100vh;
+  padding: 10vh 0;
 
   @media screen and (max-width: 1024px) {
     display: block;
     overflow: hidden;
-    margin: 2% auto;
+    height: auto;
+  }
+
+  .bg-holder {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    opacity: 1;
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+      position: absolute;
+      left: 0;
+      z-index: 1;
+    }
+
+    img {
+      float: right;
+      width: 100%;
+      position: relative;
+      z-index: 0;
+      opacity: .05;
+    }
   }
 }
 
 .movie-left-row {
   width: 45%;
   flex: 1 1 0px;
-  padding: 2% 7% 0 2%;
+  padding: 0 3% 0 7%;
 
-  .single-movie-img {
-    max-width: 350px;
-    width: 100%;
+  .img-holder {
+    width: 68%;
+    position: relative;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1024px) {
+      float: left;
+      margin-left: 2%;
+      width: 95%;
+    }
+
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 200px 200px;
+      border-color: transparent transparent #007bff transparent;
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      z-index: 9;
+      transition: all ease .4s;
+    }
+
+    &:before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 200px 200px 0 0;
+      border-color: #007bff transparent transparent transparent;
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      z-index: 9;
+      transition: all ease .4s;
+    }
+
+    .single-movie-img {
+      width: 100%;
+      position: relative;
+      z-index: 99;
+    }
   }
 
   @media screen and (max-width: 1024px) {
@@ -25,7 +99,7 @@
     padding: 20px;
   }
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 178px) {
     width: 100%;
     text-align: left;
   }
@@ -40,16 +114,21 @@
   position: relative;
 
   .title {
-    font-size: 40px;
+    font-size: 100px;
+    letter-spacing: 2px;
     font-weight: 300;
     margin-bottom: 20px;
     text-align: left;
+
+    @media screen and (max-width: 992px) {
+      font-size: 60px;
+    }
   }
 
   .genre-list {
     .genre {
       display: inline-block;
-      font-size: 11px;
+      font-size: 14px;
       vertical-align: middle;
 
       &:first-child {
@@ -72,22 +151,22 @@
         margin-right: 0;
 
         &:after {
-            content: '';
-            width: 0;
-            height: 0;
-            opacity: 0;
+          content: '';
+          width: 0;
+          height: 0;
+          opacity: 0;
         }
       }
     }
   }
 
   .movie-overview {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.5em;
-    margin-top: 5px;
+    margin-top: 30px;
 
     p {
-      margin-bottom: 5px
+      margin-bottom: 30px
     }
 
     b {
@@ -96,46 +175,53 @@
 
     span {
       font-weight: 300;
-      font-size: 10px;
+      font-size: 14px;
       display: block;
       margin-bottom: 40px;
     }
   }
 
   .link-back {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     text-decoration: none;
     position: absolute;
-    bottom: 0;
+    bottom: -10px;
     left: 0;
     background: none;
     border: 0 none;
     cursor: pointer;
     opacity: .8;
     transition: all ease .2s;
+    color: #fff;
 
     @media screen and (max-width: 1024px) {
-        position: relative;
-        display: block;
-        margin-top: 20px;
-      }
+      position: static;
+      display: block;
+      margin-top: 70px;
+      line-height: 1.2;
+    }
 
     &:hover {
       opacity: 1;
+      color: #00b9fc;
+
+      .arrow {
+        border-color: #00b9fc;
+      }
     }
 
-    &:before {
-      content: '';
-      background-image: url('../../../../assets/images/back-arrow.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 100% auto;
-      vertical-align: middle;
-      width: 12px;
-      height: 19px;
+    .arrow {
+      border: solid #fff;
+      border-width: 0 3px 3px 0;
       display: inline-block;
-      margin-right: 5px;
+      padding: 6px;
+      margin-bottom: -1px;
+
+      &.left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
     }
   }
 
@@ -145,7 +231,7 @@
     padding: 20px;
   }
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 768px) {
     width: 100%;
   }
 }

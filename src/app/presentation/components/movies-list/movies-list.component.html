@@ -3,18 +3,34 @@
 </div>
 
 <div class="wrapper" *ngIf="dataReady">
-  <h1 class="title">Welcome to movies database application</h1>
-  <p class="sub-title">Best place to find all of the most popular movies</p>
-  <p class="sub-title">Choose your favorite genre</p>
-
-  <ul class="movies-filter">
-    <ng-template ngFor let-genre [ngForOf]="moviesService.genres">
-      <li>
-        <a href="#" (click)="filterMovies(genre.id, genre.name)" [ngClass]="{'active': selectedItem === genre.name}"
-        class="active">{{genre.name}}</a>
-      </li>
-    </ng-template>
-  </ul>
+  <div class="header-holder">
+    <span class="logo"></span>
+    <ul class="movies-filter {{toggledMenu}}">
+      <ng-template ngFor let-genre [ngForOf]="moviesService.genres">
+        <li>
+          <a href="#" (click)="filterMovies(genre.id, genre.name)" [ngClass]="{'active': selectedItem === genre.name}"
+            class="active">{{genre.name}}</a>
+        </li>
+      </ng-template>
+    </ul>
+    <div class="menu-icon" (click)="openMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="hero-content-holder">
+      <h1 class="title">See what's trending 
+        <span>in this genre</span></h1>
+      <div class="movie-column-hero" routerLink="/movie-details/{{moviesFilteredData[1].id}}">
+        <div class="movie-img-holder">
+          <img [src]="imgBaseUrl + moviesFilteredData[1].posterPath" class="movie-img">
+          <span class="show-more"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="movie-row">
     <ng-template ngFor let-movie [ngForOf]="moviesFilteredData">
@@ -22,6 +38,8 @@
         <h3 class="movie-title">{{movie.title}}</h3>
         <div class="movie-img-holder">
           <img [src]="imgBaseUrl + movie.posterPath" class="movie-img">
+          <button class="show-more" routerLink="/movie-details/{{movie.id}}">Read more <i
+              class="arrow right"></i></button>
         </div>
         <span class="movie-votes">{{movie.voteAverage}} of {{movie.voteCount}}</span>
         <ng-template #t let-fill="fill">
@@ -30,7 +48,6 @@
           </span>
         </ng-template>
         <ngb-rating [(rate)]="movie.voteAverage" [starTemplate]="t" [readonly]="true" [max]="10"></ngb-rating>
-        <button class="show-more" routerLink="/movie-details/{{movie.id}}">Read more</button>
       </div>
     </ng-template>
   </div>

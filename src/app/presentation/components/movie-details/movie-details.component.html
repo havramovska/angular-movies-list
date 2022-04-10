@@ -3,8 +3,13 @@
 </div>
 
 <div id="movieDetails" class="wrapper" *ngIf="dataReady">
+  <div class="bg-holder">
+    <img [src]="imgBaseUrl + movieDetails[0].posterPath" class="background-img">
+  </div>
   <div class="movie-left-row">
-    <img [src]="imgBaseUrl + movieDetails[0].posterPath" class="single-movie-img">
+    <div class="img-holder">
+      <img [src]="imgBaseUrl + movieDetails[0].posterPath" class="single-movie-img">
+    </div>
   </div>
   <div class="movie-right-row">
     <h3 class="title">{{movieDetails[0].title}}</h3>
@@ -28,6 +33,6 @@
     </ng-template>
     <ngb-rating [(rate)]="movieDetails[0].voteAverage" [starTemplate]="t" [readonly]="true" [max]="10"></ngb-rating>
 
-    <button routerLink="/" class="link-back">Back to movies list</button>
+    <button routerLink="/" class="link-back"><i class="arrow left"></i> Back to movies list</button>
   </div>
 </div>
